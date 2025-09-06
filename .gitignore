@@ -6,7 +6,12 @@
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
-[Bb]uild/
+Burgara Bøting/Build/Build
+Burgara Bøting/Build/node_modules
+Burgara Bøting/Build/TemplateData
+Burgara Bøting/Build/ProjectVersion.txt
+Burgara Bøting/Build/localhost*
+
 [Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/

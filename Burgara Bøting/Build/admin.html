@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Live Players</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body{font:14px system-ui,Arial;margin:20px;background:#0b0e14;color:#e6e6e6}
+    h1{font-size:18px;margin:0 0 12px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid #222}
+    th{position:sticky;top:0;background:#111;text-align:left}
+    .muted{opacity:.7;font-size:12px}
+    .right{text-align:right}
+    .pill{padding:2px 8px;border-radius:12px;background:#16202a}
+  </style>
+</head>
+<body>
+  <h1>Live Players <span id="count" class="pill">0</span></h1>
+  <div class="muted">Auto-updates via SSE. Open this on a second monitor.</div>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Score</th><th>Platform</th><th>Last Seen</th><th>PlayerId</th></tr>
+    </thead>
+    <tbody id="rows"><tr><td colspan="5" class="muted">Waiting for data…</td></tr></tbody>
+  </table>
+
+  <script>
+    const rows = document.getElementById('rows');
+    const count = document.getElementById('count');
+
+    function render(players){
+      rows.innerHTML = '';
+      count.textContent = players.length;
+      const now = Date.now();
+      for (const p of players){
+        const tr = document.createElement('tr');
+        const last = timeAgo(now - p.lastSeen);
+        tr.innerHTML = `
+          <td>${escapeHtml(p.name || 'Player')}</td>
+          <td class="right">${p.score ?? 0}</td>
+          <td>${escapeHtml(p.platform || '')}</td>
+          <td class="muted">${last}</td>
+          <td class="muted">${escapeHtml(p.playerId)}</td>`;
+        rows.appendChild(tr);
+      }
+      if (players.length === 0){
+        rows.innerHTML = '<tr><td colspan="5" class="muted">No players yet.</td></tr>';
+      }
+    }
+
+    function timeAgo(ms){
+      const s = Math.round(ms/1000);
+      if (s < 5) return 'just now';
+      if (s < 60) return s + 's ago';
+      const m = Math.round(s/60); if (m < 60) return m + 'm ago';
+      const h = Math.round(m/60); return h + 'h ago';
+    }
+
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    // Live updates via Server-Sent Events (works behind your HTTPS)
+    const useHttps = location.protocol === 'https:';
+    const base = `${useHttps ? 'https' : 'http'}://${location.host}`;
+    const es = new EventSource(`${base}/api/stream`);
+    es.addEventListener('message', ev => {
+      const msg = JSON.parse(ev.data || '{}');
+      if (msg.type === 'players') render(msg.players || []);
+    });
+    es.onerror = () => console.warn('SSE connection problem; will retry automatically…');
+
+    // Fallback: refresh every 3s if SSE not supported
+    if (typeof EventSource === 'undefined'){
+      setInterval(async () => {
+        const r = await fetch(`${base}/api/players`);
+        const j = await r.json();
+        render(j.players || []);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
