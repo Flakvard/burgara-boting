@@ -12,20 +12,19 @@ public class LoadScene : MonoBehaviour
         myInputField.onEndEdit.AddListener(ProcessInput);
     }
 
+
     void ProcessInput(string inputText)
     {
         Debug.Log("User entered: " + inputText);
-        SetInputFieldText(inputText);
-    }
 
-    // Example of setting text programmatically
-    public void SetInputFieldText(string newText)
-    {
-        myInputField.text = newText;
+        // Save input globally
+        PlayerStats.Name = inputText;
     }
 
     public void LoadTheScene(string scene)
     {
+        // Make sure we save before loading
+        PlayerStats.Name = myInputField.text;
         SceneManager.LoadScene(scene);
     }
 }
