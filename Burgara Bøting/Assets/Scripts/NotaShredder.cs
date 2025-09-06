@@ -24,12 +24,14 @@ public class NotaShredder : MonoBehaviour
         // Loop through and do something
         foreach (Collider2D col in results)
         {
-            Debug.Log("Overlapping: " + col.name);
+            // Debug.Log("Overlapping: " + col.name);
 
             // Example: destroy the overlapping GameObject
             // Destroy(col.gameObject);
             NotaNode notaNode = col.GetComponent<NotaNode>();
             notaNode.ShredLines();
         }
+
+        gameObject.SetActive(false);
     }
 }
