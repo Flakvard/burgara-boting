@@ -12,10 +12,20 @@ public class NotaNode : MonoBehaviour
 
     public void ShredLines()
     {
-        foreach (NotaLine notaLine in notaLines)
+        // foreach (NotaLine notaLine in notaLines)
+        // {
+        //     notaLine.Shred();
+        // }
+
+        while (notaLines.Count > 0)
         {
-            Destroy(notaLine.gameObject);
+            notaLines[0].Shred();
         }
-        notaLines.Clear();
+        // notaLines.Clear();
+    }
+
+    public bool RemoveLine(NotaLine notaLine)
+    {
+        return notaLines.Remove(notaLine);
     }
 }
