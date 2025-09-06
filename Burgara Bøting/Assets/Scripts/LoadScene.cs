@@ -25,6 +25,7 @@ public class LoadScene : MonoBehaviour
     {
         // Make sure we save before loading
         PlayerStats.Name = myInputField.text;
+        FindAnyObjectByType<LeaderboardClient>()?.JoinNow();
         SceneManager.LoadScene(scene);
     }
 }
