@@ -29,33 +29,33 @@ public class LoadingScreenController : MonoBehaviour
     void Update()
     {
         // SFX tests
-        if (Input.GetKeyDown(RopeSnapKey))     SoundManager.Instance.PlayRopeSnap();
-        if (Input.GetKeyDown(RopeTensionKey))  SoundManager.Instance.PlayRopeTension();
-        if (Input.GetKeyDown(KnotJoinKey))     SoundManager.Instance.PlayKnotJoinClick();
-        if (Input.GetKeyDown(KnotGenericKey))  SoundManager.Instance.PlayKnot();
-        if (Input.GetKeyDown(KnotCouplingKey)) SoundManager.Instance.PlayKnotCoupling();
+        // if (Input.GetKeyDown(RopeSnapKey))     SoundManager.Instance.PlayRopeSnap();
+        // if (Input.GetKeyDown(RopeTensionKey))  SoundManager.Instance.PlayRopeTension();
+        // if (Input.GetKeyDown(KnotJoinKey))     SoundManager.Instance.PlayKnotJoinClick();
+        // if (Input.GetKeyDown(KnotGenericKey))  SoundManager.Instance.PlayKnot();
+        // if (Input.GetKeyDown(KnotCouplingKey)) SoundManager.Instance.PlayKnotCoupling();
 
-        // Random SFX (Space)
-        if (Input.GetKeyDown(RandomKey))
-        {
-            var values = (SoundManager.Sfx[])System.Enum.GetValues(typeof(SoundManager.Sfx));
-            var pick = values[Random.Range(0, values.Length)];
-            SoundManager.Instance.PlaySfx(pick);
-        }
+        // // Random SFX (Space)
+        // if (Input.GetKeyDown(RandomKey))
+        // {
+        //     var values = (SoundManager.Sfx[])System.Enum.GetValues(typeof(SoundManager.Sfx));
+        //     var pick = values[Random.Range(0, values.Length)];
+        //     SoundManager.Instance.PlaySfx(pick);
+        // }
 
-        // Utility controls
-        if (Input.GetKeyDown(ToggleMusicMute))
-            SoundManager.Instance.MusicSource.mute = !SoundManager.Instance.MusicSource.mute;
+        // // Utility controls
+        // if (Input.GetKeyDown(ToggleMusicMute))
+        //     SoundManager.Instance.MusicSource.mute = !SoundManager.Instance.MusicSource.mute;
 
-        if (Input.GetKeyDown(ToggleSfxMute))
-            SoundManager.Instance.EffectsSource.mute = !SoundManager.Instance.EffectsSource.mute;
+        // if (Input.GetKeyDown(ToggleSfxMute))
+        //     SoundManager.Instance.EffectsSource.mute = !SoundManager.Instance.EffectsSource.mute;
 
-        if (Input.GetKeyDown(PauseResumeMusic))
-        {
-            var music = SoundManager.Instance.MusicSource;
-            if (music.isPlaying) music.Pause();
-            else                 music.UnPause();
-        }
+        // if (Input.GetKeyDown(PauseResumeMusic))
+        // {
+        //     var music = SoundManager.Instance.MusicSource;
+        //     if (music.isPlaying) music.Pause();
+        //     else                 music.UnPause();
+        // }
     }
 
     void OnGUI()
