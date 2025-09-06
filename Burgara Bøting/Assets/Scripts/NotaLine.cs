@@ -27,9 +27,14 @@ public class NotaLine : MonoBehaviour
     {
         if (!notaNode1.RemoveLine(this))
             Debug.LogError("Remove line 1 unsuccessful");
-        if(!notaNode2.RemoveLine(this))
+        if (!notaNode2.RemoveLine(this))
             Debug.LogError("Remove line 2 unsuccessful");
 
         Destroy(gameObject);
+    }
+
+    public NotaNode[] GetNotaNodesConnected()
+    {
+        return new NotaNode[] { notaNode1, notaNode2 };
     }
 }

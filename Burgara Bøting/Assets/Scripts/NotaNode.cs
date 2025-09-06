@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NotaNode : MonoBehaviour
@@ -27,5 +28,22 @@ public class NotaNode : MonoBehaviour
     public bool RemoveLine(NotaLine notaLine)
     {
         return notaLines.Remove(notaLine);
+    }
+
+    public int GetNotaLinesAmount()
+    {
+        return notaLines.Count;
+    }
+
+    public bool HasConnectedWithNode(NotaNode otherNode)
+    {
+        foreach (NotaLine notaLine in notaLines)
+        {
+            if (notaLine.GetNotaNodesConnected().Contains(otherNode))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
