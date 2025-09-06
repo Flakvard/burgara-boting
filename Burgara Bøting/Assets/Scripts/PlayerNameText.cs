@@ -9,23 +9,35 @@ public class PlayerNameText : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        myDynamicText.text = "Hello World";
-        myDynamicStats.text = "0";
+        if (myDynamicStats is not null && myDynamicText is not null)
+        {
+            if (myDynamicText.text is not null)
+                    myDynamicText.text = "Hello World";
+            if(myDynamicStats.text is not null)
+                myDynamicStats.text = "0";
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerStats.Name is not null)
+        if (myDynamicText is not null && myDynamicStats is not null)
         {
-            myDynamicText.text = PlayerStats.Name;
-            myDynamicStats.text = PlayerStats.Score.ToString();
+            if (PlayerStats.Name is not null)
+                {
+                    if (myDynamicText.text is not null)
+                        myDynamicText.text = PlayerStats.Name;
+                    if (myDynamicStats.text is not null)
+                        myDynamicStats.text = PlayerStats.Score.ToString();
+                }
+                else
+                {
+                    if (myDynamicText.text is not null)
+                        myDynamicText.text = "Hello World";
+                    if (myDynamicStats.text is not null)
+                        myDynamicStats.text = "0";
+                }
+            
         }
-        else
-        {
-            myDynamicText.text = "Hello World";
-            myDynamicStats.text = "0";
-        }
-        
     }
 }

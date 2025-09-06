@@ -202,7 +202,6 @@ GameObject:
   - component: {fileID: 224048503}
   - component: {fileID: 224048506}
   - component: {fileID: 224048505}
-  - component: {fileID: 224048504}
   m_Layer: 5
   m_Name: PlayerStatsText
   m_TagString: Untagged
@@ -229,20 +228,6 @@ RectTransform:
   m_AnchoredPosition: {x: 229.09052, y: 153}
   m_SizeDelta: {x: 174.181, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &224048504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 224048502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd56469d8a623214290b3daeebe7310a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myDynamicText: {fileID: 0}
-  myDynamicStats: {fileID: 224048505}
 --- !u!114 &224048505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +339,7 @@ GameObject:
   - component: {fileID: 347023787}
   - component: {fileID: 347023786}
   - component: {fileID: 347023785}
+  - component: {fileID: 347023789}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -390,10 +376,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 667, y: 375}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -448,6 +434,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &347023789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347023784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd56469d8a623214290b3daeebe7310a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myDynamicText: {fileID: 1486392867}
+  myDynamicStats: {fileID: 224048505}
 --- !u!1 &688774930
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +688,6 @@ GameObject:
   - component: {fileID: 1486392865}
   - component: {fileID: 1486392868}
   - component: {fileID: 1486392867}
-  - component: {fileID: 1486392866}
   m_Layer: 5
   m_Name: PlayerNameText
   m_TagString: Untagged
@@ -715,20 +714,6 @@ RectTransform:
   m_AnchoredPosition: {x: -223, y: 153}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1486392866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486392864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd56469d8a623214290b3daeebe7310a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myDynamicText: {fileID: 1486392867}
-  myDynamicStats: {fileID: 0}
 --- !u!114 &1486392867
 MonoBehaviour:
   m_ObjectHideFlags: 0
