@@ -58,9 +58,32 @@ public class LeaderboardClient : MonoBehaviour
         return id;
     }
 
+    // LeaderboardClient.cs (drop-in replacements/additions)
+
+    // buildUrlHelper
+    string BuildUrl(string path)
+    {
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        var abs = Application.absoluteURL;                // e.g. https://server-ip:8443/play/index.html?...
+        if (!string.IsNullOrEmpty(abs))
+        {
+            try {
+                var u = new System.Uri(abs);
+                return $"{u.Scheme}://{u.Authority}{path}"; // same scheme+host+port as the page
+            } catch { /* fall through */ }
+        }
+        return path; // last resort (relative)
+    #else
+        // Editor/Standalone: use the serialized baseUrl (default to localhost)
+        var baseU = string.IsNullOrWhiteSpace(baseUrl) ? "http://127.0.0.1:8080" : baseUrl.TrimEnd('/');
+        return $"{baseU}{path}";
+    #endif
+    }
+
     IEnumerator Join()
     {
-        var url = $"{baseUrl}/api/join";
+        // var url = $"{baseUrl}/api/join";
+        var url = BuildUrl("/api/join");
         var payload = JsonUtility.ToJson(new JoinBody {
             name = string.IsNullOrWhiteSpace(PlayerStats.Name) ? "Player" : PlayerStats.Name,
             playerId = _playerId,
@@ -108,7 +131,8 @@ public class LeaderboardClient : MonoBehaviour
     {
         if (!_joined || string.IsNullOrEmpty(_playerId)) yield break;
 
-        var url = $"{baseUrl}/api/score";
+        // var url = $"{baseUrl}/api/score";
+        var url = BuildUrl("/api/score");
         var payload = JsonUtility.ToJson(new ScoreBody
         {
             playerId = _playerId,
