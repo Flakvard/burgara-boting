@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  botarin:
+    build: ./Build              # your Dockerfile + app code
+    container_name: botarin
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      BEHIND_PROXY: "1"               # 👈 disables internal HTTPS/redirects
+    # publish only to localhost; Nginx will connect here
+    ports:
+      - "127.0.0.1:8004:8080"
+    # If you want to live-edit static files without rebuilds, uncomment:
+    # volumes:
+    #   - ./botarin-app/index.html:/app/index.html:ro
+    #   - ./botarin-app/Build:/app/Build:ro
