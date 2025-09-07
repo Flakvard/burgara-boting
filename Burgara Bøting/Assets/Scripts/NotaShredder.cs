@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class NotaShredder : MonoBehaviour
 {
+    public BotingTracker botingTracker;
 
     public void Shred()
     {
@@ -21,6 +22,8 @@ public class NotaShredder : MonoBehaviour
         // Find overlapping colliders
         collider2D.Overlap(filter, results);
 
+        int linesShrededAmount = 0;
+
         // Loop through and do something
         foreach (Collider2D col in results)
         {
@@ -29,8 +32,10 @@ public class NotaShredder : MonoBehaviour
             // Example: destroy the overlapping GameObject
             // Destroy(col.gameObject);
             NotaNode notaNode = col.GetComponent<NotaNode>();
-            notaNode.ShredLines();
+            linesShrededAmount += notaNode.ShredLines();
         }
+
+        botingTracker.SetWireAmountMissing(linesShrededAmount);
 
         gameObject.SetActive(false);
     }

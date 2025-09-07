@@ -17,6 +17,7 @@ public class GameDragInteraction : MonoBehaviour
     public AudioSource robeTieAudioSource;
     public GameObject botaNal;
     Vector2 lastPointerPos;
+    public BotingTracker botingTracker;
 
     // ✅ ADDED: Track segments drawn in this drag
     private HashSet<(NotaNode, NotaNode)> connectedNodePairs = new HashSet<(NotaNode, NotaNode)>();
@@ -45,6 +46,12 @@ public class GameDragInteraction : MonoBehaviour
         // Dragging
         if (isDragging)
         {
+            botaNal.transform.position = pointerPos;
+            if (Vector2.Distance(pointerPos, lastPointerPos) > .01f)
+            {
+                botaNal.transform.eulerAngles = new Vector3(0, 0, Mathf.LerpAngle(botaNal.transform.eulerAngles.z, Mathf.Atan2(pointerPos.y - lastPointerPos.y, pointerPos.x - lastPointerPos.x) * Mathf.Rad2Deg - 90, 0.1f));
+            }
+
             if (touchedNotaNodes.Count > 0)
             {
                 myLineRenderer.SetPosition(myLineRenderer.positionCount - 1, pointerPos);
@@ -123,6 +130,7 @@ public class GameDragInteraction : MonoBehaviour
                 {
                     notaLine.Connect(touchedNotaNodes[i - 1], touchedNotaNodes[i]);
                     scoreToAdd += 10;
+                    botingTracker.AddWiresFixed(1);
                 }
             }
 

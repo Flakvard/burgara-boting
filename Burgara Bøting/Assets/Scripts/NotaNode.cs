@@ -11,18 +11,17 @@ public class NotaNode : MonoBehaviour
         notaLines.Add(notaLine);
     }
 
-    public void ShredLines()
+    public int ShredLines()
     {
-        // foreach (NotaLine notaLine in notaLines)
-        // {
-        //     notaLine.Shred();
-        // }
+        int shredAmount = 0;
 
         while (notaLines.Count > 0)
         {
             notaLines[0].Shred();
+            shredAmount++;
         }
-        // notaLines.Clear();
+
+        return shredAmount;
     }
 
     public bool RemoveLine(NotaLine notaLine)
