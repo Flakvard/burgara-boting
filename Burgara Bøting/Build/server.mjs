@@ -13,13 +13,22 @@ const __dirname = path.dirname(__filename);
 const ROOT = __dirname;
 const HTTPS_PORT = 8443;
 const HTTP_PORT  = 8080;
+const BEHIND_PROXY = process.env.BEHIND_PROXY === '1';
 
 // If you built with Brotli in Unity, leave 'br'. If you used Gzip with .unityweb, set 'gzip'.
 const UNITY_ENCODING = 'br';
 
 // load certs (created by mkcert)
-const key  = fssync.readFileSync(path.join(__dirname, 'localhost-key.pem'));
-const cert = fssync.readFileSync(path.join(__dirname, 'localhost.pem'));
+// const key  = fssync.readFileSync(path.join(__dirname, 'localhost-key.pem'));
+// const cert = fssync.readFileSync(path.join(__dirname, 'localhost.pem'));
+// Load certs ONLY if not behind a reverse proxy (prod uses Nginx TLS)
+let key, cert;
+if (!BEHIND_PROXY) {
+  const keyPath  = process.env.TLS_KEY_PATH  || path.join(__dirname, 'localhost-key.pem');
+  const certPath = process.env.TLS_CERT_PATH || path.join(__dirname, 'localhost.pem');
+  key  = fssync.readFileSync(keyPath);
+  cert = fssync.readFileSync(certPath);
+}
 
 const mime = {
   '.html':'text/html', '.js':'application/javascript', '.wasm':'application/wasm',
@@ -220,17 +229,44 @@ function cryptoRandomId() {
 }
 
 // HTTPS server (serves static + API)
-https.createServer({ key, cert }, (req, res) => {
-  if (handleApi(req, res, 'https')) return;
-  serveStatic(req, res);
-}).listen(HTTPS_PORT, () => {
-  console.log(`🔒 HTTPS: https://localhost:${HTTPS_PORT}`);
-  console.log(`Serving: ${ROOT}`);
-});
+// https.createServer({ key, cert }, (req, res) => {
+//   if (handleApi(req, res, 'https')) return;
+//   serveStatic(req, res);
+// }).listen(HTTPS_PORT, () => {
+//   console.log(`🔒 HTTPS: https://localhost:${HTTPS_PORT}`);
+//   console.log(`Serving: ${ROOT}`);
+// });
+
+if (!BEHIND_PROXY) {
+  https.createServer({ key, cert }, (req, res) => {
+    if (handleApi(req, res, 'https')) return;
+    serveStatic(req, res);
+  }).listen(HTTPS_PORT, () => {
+    console.log(`🔒 HTTPS: https://localhost:${HTTPS_PORT}`);
+    console.log(`Serving: ${ROOT}`);
+  });
+}
 
 // HTTP server (redirects to https EXCEPT for API which stays plain HTTP if you want it)
 http.createServer((req, res) => {
   if (handleApi(req, res, 'http')) return;
-  const host = req.headers.host?.replace(/:\d+$/, `:${HTTPS_PORT}`) || `localhost:${HTTPS_PORT}`;
-  res.writeHead(301, { Location: `https://${host}${req.url}` }); res.end();
-}).listen(HTTP_PORT, () => console.log(`↪  http://localhost:${HTTP_PORT} (redirects → HTTPS; API served on both)`));
+  // const host = req.headers.host?.replace(/:\d+$/, `:${HTTPS_PORT}`) || `localhost:${HTTPS_PORT}`;
+  // res.writeHead(301, { Location: `https://${host}${req.url}` }); res.end();
+  if (BEHIND_PROXY) {
+    // Behind Nginx TLS termination: serve over HTTP internally
+    serveStatic(req, res);
+  } else {
+    const host = req.headers.host?.replace(/:\d+$/, `:${HTTPS_PORT}`) || `localhost:${HTTPS_PORT}`;
+    res.writeHead(301, { Location: `https://${host}${req.url}` }); res.end();
+  }
+}).listen(HTTP_PORT, () => 
+  // console.log(`↪  http://localhost:${HTTP_PORT} (redirects → HTTPS; API served on both)`));
+    console.log(
+    BEHIND_PROXY
+      ? `🏁 HTTP app mode (behind proxy) on http://localhost:${HTTP_PORT}`
+      : `↪  http://localhost:${HTTP_PORT} (redirects → HTTPS; API served on both)`
+  )
+);
+
+
+
