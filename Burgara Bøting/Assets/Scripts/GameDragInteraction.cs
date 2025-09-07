@@ -336,7 +336,7 @@ public class GameDragInteraction : MonoBehaviour
             touchedNotaNodes.Clear();
             myLineRenderer.positionCount = 0;
 
-            if (PlayerStats.Instance())
+            if (PlayerStats.Instance() != null)
             {
                 PlayerStats.AddToScore(scoreToAdd);
             }

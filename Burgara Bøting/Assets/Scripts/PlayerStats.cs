@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    private static PlayerStats instance;
+    private static PlayerStats instance = null;
     public static PlayerStats Instance()
     {
         return instance;
