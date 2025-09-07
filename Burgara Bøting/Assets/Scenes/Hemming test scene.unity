@@ -295,7 +295,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0fbf2aad2e9a7c74288f34318f349427, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -327,7 +327,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.07
+        value: 0.15
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -364,14 +364,14 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
+    numCornerVertices: 8
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
-    textureScale: {x: 1, y: 1}
+    textureMode: 1
+    textureScale: {x: 8, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
@@ -386,13 +386,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 909375393278704680, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[13].x
+      value: 2.361299
+      objectReference: {fileID: 0}
+    - target: {fileID: 909375393278704680, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[13].y
+      value: -0.058753133
+      objectReference: {fileID: 0}
     - target: {fileID: 1005402768911489064, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.78245
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1005402768911489064, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.65418
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1005402768911489064, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -429,6 +437,22 @@ PrefabInstance:
     - target: {fileID: 2391460030583042360, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
       propertyPath: m_Name
       value: "N\xF3ti"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729766372623841776, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729766372623841776, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9035954684785602166, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9035954684785602166, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

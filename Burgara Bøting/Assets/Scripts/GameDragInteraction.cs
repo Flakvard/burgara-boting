@@ -42,21 +42,10 @@ public class GameDragInteraction : MonoBehaviour
             Collider2D hit = Physics2D.OverlapPoint(pointerPos);
             if (hit != null)
             {
-                // Debug.Log("Dragged over: " + hit.name);
-                Debug.Log($"CUR Count: {touchedNotaNodes.Count}");
-
-                // var shredder = hit.GetComponent<NotaNode>();
-                // if (shredder != null)
-                // {
-                //     shredder.ShredLines();
-                // }
-
                 NotaNode currentNotaNode = hit.GetComponent<NotaNode>();
 
-                print("FEED");
                 if (currentNotaNode != null)
                 {
-                    print("FEED INSIDE");
                     int touchedNotaNodesAmount = touchedNotaNodes.Count;
                     if (touchedNotaNodesAmount == 0 && currentNotaNode.GetNotaLinesAmount() >= 2)
                     {
@@ -81,8 +70,12 @@ public class GameDragInteraction : MonoBehaviour
                         //   &&
                         //  touchedNotaNodes.Select((touchedNotaNode, index) =>
                         //  {
-                        //      return touchedNotaNode == currentNotaNode;
+                        //      return touchedNotaNode == currentNotaNode && (touchedNotaNodes[index - 1] == lastNotaNode || touchedNotaNodes[index + 1] == lastNotaNode);
                         //  }).ToArray().Length == 0
+
+                        &&
+                        !DoesNewSegmentIntersectExistingOnes(lastNotaNode.transform.position, currentNotaNode.transform.position)
+
                         )
                         {
                             if (sinceLastSafeNotaNode == 0)
@@ -158,4 +151,43 @@ public class GameDragInteraction : MonoBehaviour
         myLineRenderer.positionCount = linePositions.Length + 1;
         myLineRenderer.SetPositions(linePositions.Concat(new Vector3[] { pointerPos }).ToArray());
     }
+
+    private bool DoesNewSegmentIntersectExistingOnes(Vector2 newStart, Vector2 newEnd)
+    {
+        // Loop through all segments already created in touchedNotaNodes
+        for (int i = 0; i < touchedNotaNodes.Count - 2; i++)
+        {
+            Vector2 a = touchedNotaNodes[i].transform.position;
+            Vector2 b = touchedNotaNodes[i + 1].transform.position;
+
+            if (DoLinesIntersect(a, b, newStart, newEnd))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Helper to check line intersection between (p1-p2) and (q1-q2)
+    private bool DoLinesIntersect(Vector2 p1, Vector2 p2, Vector2 q1, Vector2 q2)
+    {
+        float o1 = Orientation(p1, p2, q1);
+        float o2 = Orientation(p1, p2, q2);
+        float o3 = Orientation(q1, q2, p1);
+        float o4 = Orientation(q1, q2, p2);
+
+        if (o1 != o2 && o3 != o4)
+            return true;
+
+        return false;
+    }
+
+    private float Orientation(Vector2 a, Vector2 b, Vector2 c)
+    {
+        float val = (b.y - a.y) * (c.x - b.x) - (b.x - a.x) * (c.y - b.y);
+        if (Mathf.Abs(val) < Mathf.Epsilon) return 0f; // Colinear
+        return (val > 0f) ? 1f : 2f; // Clockwise or counterclockwise
+    }
+
 }
