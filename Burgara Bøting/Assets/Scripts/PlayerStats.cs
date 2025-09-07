@@ -13,6 +13,10 @@ public class PlayerStats : MonoBehaviour
     public static int Score;
     public TMP_Text scoreText;
 
+    // --- debounce so we don't POST too often ---
+    [SerializeField] float minPushInterval = 0.25f; // seconds
+    float _lastPushTime = -999f;
+
     void Awake()
     {
         if (instance == null)
@@ -37,6 +41,14 @@ public class PlayerStats : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = Score.ToString();
+        }
+
+        // Push to server, but not more often than minPushInterval
+        if (Time.unscaledTime - _lastPushTime >= minPushInterval)
+        {
+            _lastPushTime = Time.unscaledTime;
+            var client = LeaderboardClient.Instance ?? FindAnyObjectByType<LeaderboardClient>();
+            client?.PushScoreNow(Score);
         }
     }
 
