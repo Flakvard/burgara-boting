@@ -989,65 +989,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1586350917238431323, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2327632590491630807, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2391460030583042360, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
       propertyPath: m_Name
       value: "N\xF3ti"
       objectReference: {fileID: 0}
-    - target: {fileID: 2620611889561240907, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2691036831540808889, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 3424407290688734419, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: onTrolBott.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2714443129166818796, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2981808279383637671, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3053514328667083417, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3334178652113915465, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3464397611648265562, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3610898042225697508, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4340194499339594298, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4965981032882585531, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6140589178164096289, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6591227745347609497, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

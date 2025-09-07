@@ -27,4 +27,10 @@ public class BotingTracker : MonoBehaviour
     {
         return (int)((float)currentWireFixed / wireAmountMissing * 100f);
     }
+
+    public void ResetInfo()
+    {
+        wireAmountMissing = 0;
+        currentWireFixed = 0;
+    }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 // [RequireComponent(typeof(Collider2D))]
@@ -8,6 +9,7 @@ public class NotaShredder : MonoBehaviour
 
     public void Shred()
     {
+        botingTracker.ResetInfo();
         // Collider2D collider2D = GetComponent<Collider2D>();
         Collider2D[] colliders2D = GetComponentsInChildren<Collider2D>();
         Collider2D collider2D = colliders2D[Random.Range(0, colliders2D.Length)];
@@ -44,5 +46,16 @@ public class NotaShredder : MonoBehaviour
         botingTracker.SetWireAmountMissing(linesShrededAmount);
 
         collider2D.gameObject.SetActive(false);
+    }
+
+    public void WaitThenShred(float seconds)
+    {
+        StartCoroutine(WaitShred(seconds));
+    }
+
+    IEnumerator WaitShred(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Shred();
     }
 }
