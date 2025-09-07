@@ -659,6 +659,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &893894676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 893894678}
+  - component: {fileID: 893894677}
+  m_Layer: 0
+  m_Name: EndSceneChangeManagement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &893894677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893894676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dea1e1d816858e42af3044739992164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myInputField: {fileID: 0}
+--- !u!4 &893894678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893894676}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.47423, y: 0.06059, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &905447661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -667,6 +712,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 347023788}
     m_Modifications:
+    - target: {fileID: 2096972682795142183, guid: fc457a477d673f045b31ecff05d6fcf4, type: 3}
+      propertyPath: eventsOnTimerEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096972682795142183, guid: fc457a477d673f045b31ecff05d6fcf4, type: 3}
+      propertyPath: eventsOnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096972682795142183, guid: fc457a477d673f045b31ecff05d6fcf4, type: 3}
+      propertyPath: eventsOnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 893894677}
+    - target: {fileID: 2096972682795142183, guid: fc457a477d673f045b31ecff05d6fcf4, type: 3}
+      propertyPath: eventsOnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096972682795142183, guid: fc457a477d673f045b31ecff05d6fcf4, type: 3}
+      propertyPath: eventsOnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadTheScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096972682795142183, guid: fc457a477d673f045b31ecff05d6fcf4, type: 3}
+      propertyPath: eventsOnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LoadScene, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096972682795142183, guid: fc457a477d673f045b31ecff05d6fcf4, type: 3}
+      propertyPath: eventsOnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: scenes/endscene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096972682795142183, guid: fc457a477d673f045b31ecff05d6fcf4, type: 3}
+      propertyPath: eventsOnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2743568624778262605, guid: fc457a477d673f045b31ecff05d6fcf4, type: 3}
       propertyPath: m_Name
       value: Timer
@@ -1418,6 +1495,7 @@ MonoBehaviour:
   notaLineGO: {fileID: 6778439717608905694, guid: f7b2e57aa1f5914479106a80a4a87531, type: 3}
   robeStrechAudioSource: {fileID: 564570296}
   robeTieAudioSource: {fileID: 1805599363}
+  botaNal: {fileID: 0}
 --- !u!120 &2092182435
 LineRenderer:
   serializedVersion: 2
@@ -1465,7 +1543,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0.5, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1533,3 +1611,4 @@ SceneRoots:
   - {fileID: 2041675373}
   - {fileID: 347023788}
   - {fileID: 830584638}
+  - {fileID: 893894678}

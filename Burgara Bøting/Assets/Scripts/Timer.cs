@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        timerRunning = true;
+        // timerRunning = true;
     }
 
     // Update is called once per frame
