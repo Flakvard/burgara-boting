@@ -100,16 +100,37 @@ function jsonHeaders() {
 async function serveStatic(req, res) {
   try {
     const urlPath = decodeURIComponent(new URL(req.url, `https://${req.headers.host}`).pathname);
-    let filePath = path.join(ROOT, urlPath === '/' ? 'index.html' : urlPath);
-    if (!filePath.startsWith(ROOT)) { res.writeHead(403); res.end('Forbidden'); return; }
+    // let filePath = path.join(ROOT, urlPath === '/' ? 'index.html' : urlPath);
+    // if (!filePath.startsWith(ROOT)) { res.writeHead(403); res.end('Forbidden'); return; }
 
-    let data;
-    try { data = await fs.readFile(filePath); }
-    catch {
-      if (path.extname(filePath)) { res.writeHead(404); res.end('Not found'); return; }
+    // let data;
+    // try { data = await fs.readFile(filePath); }
+    // catch {
+    //   if (path.extname(filePath)) { res.writeHead(404); res.end('Not found'); return; }
+    //   filePath = path.join(ROOT, 'index.html');
+    //   data = await fs.readFile(filePath);
+    // }
+
+    let filePath;
+    if (urlPath === '/') {
       filePath = path.join(ROOT, 'index.html');
-      data = await fs.readFile(filePath);
+    } else {
+      const raw = path.join(ROOT, urlPath);
+      if (!raw.startsWith(ROOT)) { res.writeHead(403); res.end('Forbidden'); return; }
+
+      if (path.extname(raw)) {
+        filePath = raw;
+      } else {
+        // Try /path/index.html, then /path.html, then fallback to SPA index.html
+        const indexHtml = path.join(raw, 'index.html');
+        const dotHtml   = raw + '.html';
+        if (fssync.existsSync(indexHtml))       filePath = indexHtml;
+        else if (fssync.existsSync(dotHtml))    filePath = dotHtml;
+        else                                    filePath = path.join(ROOT, 'index.html');
+      }
     }
+
+    const data = await fs.readFile(filePath);
 
     res.writeHead(200, headersFor(filePath));
     res.end(data);
