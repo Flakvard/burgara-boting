@@ -29,6 +29,8 @@ if (!BEHIND_PROXY) {
   key  = fssync.readFileSync(keyPath);
   cert = fssync.readFileSync(certPath);
 }
+let gameState = { running: false, startedAt: 0, duration: 0 }; // ms epoch + seconds
+
 
 const mime = {
   '.html':'text/html', '.js':'application/javascript', '.wasm':'application/wasm',
@@ -84,6 +86,11 @@ function broadcastPlayers() {
   for (const res of sseClients) {
     res.write(payload);
   }
+}
+
+function broadcastCmd(obj) {
+  const payload = `data: ${JSON.stringify({ type: 'cmd', ...obj })}\n\n`;
+  for (const res of sseClients) res.write(payload);
 }
 
 // --- JSON/CORS helpers ---
@@ -144,7 +151,7 @@ function handleApi(req, res, proto = 'https') {
   const { pathname } = new URL(req.url, `${proto}://${req.headers.host}`);
 
   // CORS preflight
-  if (req.method === 'OPTIONS' && (pathname === '/api/join' || pathname === '/api/score')) {
+  if (req.method === 'OPTIONS' && (pathname === '/api/join' || pathname === '/api/score' || pathname === '/api/cmd')) {
     res.writeHead(204, jsonHeaders()); res.end(); return true;
   }
 
@@ -233,12 +240,50 @@ function handleApi(req, res, proto = 'https') {
     // send initial snapshot
     res.write(`retry: 2000\n`);
     res.write(`data: ${JSON.stringify({ type: 'players', players: snapshotPlayers() })}\n\n`);
+    res.write(`data: ${JSON.stringify({ type: 'game', now: Date.now(), state: gameState })}\n\n`);
 
     sseClients.add(res);
     req.on('close', () => sseClients.delete(res));
     return true;
   }
  
+
+   // POST /api/cmd  -> broadcast a server command to all SSE listeners
+  if (pathname === '/api/cmd') {
+    if (req.method !== 'POST') { res.writeHead(405, jsonHeaders()); res.end(JSON.stringify({ ok:false, error:'Method not allowed' })); return true; }
+    if (ADMIN_TOKEN && req.headers['x-admin-token'] !== ADMIN_TOKEN) {
+      res.writeHead(401, jsonHeaders()); res.end(JSON.stringify({ ok:false, error:'Unauthorized' })); return true;
+    }
+    let body = '';
+    req.on('data', c => { body += c; if (body.length > 1e6) req.socket.destroy(); });
+    req.on('end', () => {
+      try {
+        const msg = JSON.parse(body || '{}'); // { cmd: 'start'|'stop'|'end', seconds?, scene? }
+        if (!msg.cmd) throw new Error('cmd required');
+
+        if (msg.cmd === 'start') {
+          const secs = Number(msg.seconds || 0);
+          gameState = { running: true, startedAt: Date.now(), duration: secs };
+        } else if (msg.cmd === 'stop') {
+          gameState = { ...gameState, running: false };
+        } else if (msg.cmd === 'end') {
+          gameState = { running: false, startedAt: 0, duration: 0 };
+        }
+
+        if (msg.cmd === 'end') {
+          // include winner summary
+          const list = snapshotPlayers();
+          msg.winner = list[0] ? { name: list[0].name, playerId: list[0].playerId, score: list[0].score } : null;
+        }
+        broadcastCmd(msg);
+        res.writeHead(200, jsonHeaders());
+        res.end(JSON.stringify({ ok:true }));
+      } catch (e) {
+        res.writeHead(400, jsonHeaders()); res.end(JSON.stringify({ ok:false, error:String(e.message||e) }));
+      }
+    });
+    return true;
+  }
 
   // not an API route
   return false;
