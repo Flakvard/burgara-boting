@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(LineRenderer))]
 public class GameDragInteraction : MonoBehaviour
@@ -66,13 +67,6 @@ public class GameDragInteraction : MonoBehaviour
                         if (Mathf.Abs(lastNotaNode.transform.position.y - currentNotaNode.transform.position.y) > 0.01f &&
                          Vector2.Distance(lastNotaNode.transform.position, currentNotaNode.transform.position) <= 0.8f &&
                          !currentNotaNode.HasConnectedWithNode(lastNotaNode)
-
-                        //   &&
-                        //  touchedNotaNodes.Select((touchedNotaNode, index) =>
-                        //  {
-                        //      return touchedNotaNode == currentNotaNode && (touchedNotaNodes[index - 1] == lastNotaNode || touchedNotaNodes[index + 1] == lastNotaNode);
-                        //  }).ToArray().Length == 0
-
                         &&
                         !DoesNewSegmentIntersectExistingOnes(lastNotaNode.transform.position, currentNotaNode.transform.position)
 
@@ -102,6 +96,8 @@ public class GameDragInteraction : MonoBehaviour
         // End drag
         if (Mouse.current.leftButton.wasReleasedThisFrame || Touchscreen.current?.primaryTouch.press.wasReleasedThisFrame == true)
         {
+            int scoreToAdd = 0;
+
             // Make the new lines that has been bøtt
             for (int i = 1; i < touchedNotaNodes.Count - sinceLastSafeNotaNode; i++)
             {
@@ -110,6 +106,7 @@ public class GameDragInteraction : MonoBehaviour
                 if (notaLine != null)
                 {
                     notaLine.Connect(touchedNotaNodes[i - 1], touchedNotaNodes[i]);
+                    scoreToAdd += 10;
                 }
             }
 
@@ -118,6 +115,7 @@ public class GameDragInteraction : MonoBehaviour
             touchedNotaNodes.Clear();
             // myLineRenderer.SetPositions(new Vector3[] { });
             myLineRenderer.positionCount = 0;
+            PlayerStats.AddToScore(scoreToAdd);
         }
     }
 
