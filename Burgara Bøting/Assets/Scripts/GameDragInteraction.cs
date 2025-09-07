@@ -76,7 +76,8 @@ public class GameDragInteraction : MonoBehaviour
                             {
                                 TempConnectNodes(currentNotaNode, pointerPos);
 
-                                sinceLastSafeNotaNode++;
+                                if (currentNotaNode.GetNotaLinesAmount() < 2)
+                                    sinceLastSafeNotaNode++;
                             }
                             else
                             {
