@@ -67,9 +67,7 @@ public class GameDragInteraction : MonoBehaviour
                         if (Mathf.Abs(lastNotaNode.transform.position.y - currentNotaNode.transform.position.y) > 0.01f &&
                          Vector2.Distance(lastNotaNode.transform.position, currentNotaNode.transform.position) <= 0.8f &&
                          !currentNotaNode.HasConnectedWithNode(lastNotaNode)
-                        &&
-                        !DoesNewSegmentIntersectExistingOnes(lastNotaNode.transform.position, currentNotaNode.transform.position)
-
+                        && !DoesNewSegmentIntersectExistingOnes(lastNotaNode.transform.position, currentNotaNode.transform.position)
                         )
                         {
                             if (sinceLastSafeNotaNode == 0)
@@ -141,13 +139,14 @@ public class GameDragInteraction : MonoBehaviour
         touchedNotaNodes.Add(currentNotaNode);
         int touchedNotaNodesAmount = touchedNotaNodes.Count;
 
+        myLineRenderer.positionCount++;
         myLineRenderer.SetPosition(touchedNotaNodesAmount, currentNotaNode.transform.position);
 
         int linesAmount = myLineRenderer.positionCount;
         Vector3[] linePositions = new Vector3[linesAmount];
         myLineRenderer.GetPositions(linePositions);
 
-        myLineRenderer.positionCount = linePositions.Length + 1;
+        // myLineRenderer.positionCount = linePositions.Length + 1;
         myLineRenderer.SetPositions(linePositions.Concat(new Vector3[] { pointerPos }).ToArray());
     }
 
