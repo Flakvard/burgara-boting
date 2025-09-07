@@ -11,13 +11,14 @@ public class PlayerStats : MonoBehaviour
 
     public static string Name;
     public static int Score;
-    public static TextMeshPro tmpScoreText;
+    public TMP_Text scoreText;
 
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -25,15 +26,18 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public static void AddToScore(int addition)
+    public void AssignScoreText(TMP_Text tMP_Text)
     {
-        Score += addition;
-        tmpScoreText.text = Score.ToString();
+        scoreText = tMP_Text;
     }
 
-    public static void AssignScoreBoard(TextMeshPro textMeshPro)
+    public void AddToScore(int addition)
     {
-        tmpScoreText = textMeshPro;
+        Score += addition;
+        if (scoreText != null)
+        {
+            scoreText.text = Score.ToString();
+        }
     }
 
     void OnDestroy()

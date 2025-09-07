@@ -338,7 +338,7 @@ public class GameDragInteraction : MonoBehaviour
 
             if (PlayerStats.Instance() != null)
             {
-                PlayerStats.AddToScore(scoreToAdd);
+                PlayerStats.Instance().AddToScore(scoreToAdd);
             }
 
             robeStrechAudioSource.Stop();
