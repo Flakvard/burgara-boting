@@ -15,24 +15,21 @@ public class LeaderboardClient : MonoBehaviour
 
     private string _playerId;
     private bool _joined;
-
+    private bool _loopStarted;
+    public static LeaderboardClient Instance { get; private set; }
     void Awake()
     {
+        // Singleton + persist across scenes
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
     IEnumerator Start()
     {
         // Create/get a stable id for WebGL (PlayerPrefs → IndexedDB/localStorage)
         _playerId = GetOrCreatePlayerId();
-
         // Wait a moment to allow UI to set PlayerStats.Name during boot
         yield return null;
-
-        // Do NOT auto-join here; we’ll join when the player presses Play (after name is set)
-        // If you still want auto-join fallback, uncomment:
-        // if (string.IsNullOrWhiteSpace(PlayerStats.Name)) yield break;
-        // yield return Join();
-        // if (_joined) StartCoroutine(PostScoreLoop());
     }
 
     public void JoinNow() // call this from your Play button flow
@@ -40,10 +37,32 @@ public class LeaderboardClient : MonoBehaviour
         if (!_joined) StartCoroutine(JoinAndStartLoop());
     }
 
+    // New: call this from your loader and yield it before changing scenes
+    public IEnumerator EnsureJoinedThenLoop()
+    {
+        if (!_joined) yield return Join();
+        StartLoopOnce();
+    }
+
+    // Optional: push score immediately on big changes (e.g., when a level ends)
+    public void PushScoreNow(int score)
+    {
+        if (_joined) StartCoroutine(PostScore(score));
+    }
+
     IEnumerator JoinAndStartLoop()
     {
         yield return Join();
-        if (_joined) StartCoroutine(PostScoreLoop());
+        StartLoopOnce();
+    }
+
+        void StartLoopOnce()
+    {
+        if (_joined && !_loopStarted)
+        {
+            _loopStarted = true;
+            StartCoroutine(PostScoreLoop());
+        }
     }
 
     string GetOrCreatePlayerId()
