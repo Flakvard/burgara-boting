@@ -327,6 +327,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &850327104 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3424407290688734419, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+  m_PrefabInstance: {fileID: 5183478558340208604}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef0e69d530092d498a198a3fd30b2a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1774959517
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +495,7 @@ MonoBehaviour:
   robeStrechAudioSource: {fileID: 124010858}
   robeTieAudioSource: {fileID: 1948970186}
   botaNal: {fileID: 1858354994}
-  botingTracker: {fileID: 0}
+  botingTracker: {fileID: 850327104}
 --- !u!120 &1774959523
 LineRenderer:
   serializedVersion: 2
@@ -978,9 +989,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1586350917238431323, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327632590491630807, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2391460030583042360, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
       propertyPath: m_Name
       value: "N\xF3ti"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2620611889561240907, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2691036831540808889, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714443129166818796, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2981808279383637671, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053514328667083417, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334178652113915465, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3464397611648265562, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3610898042225697508, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4340194499339594298, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981032882585531, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6140589178164096289, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6591227745347609497, guid: 2d521bc921deb5b49b5b28bd0727eea9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
