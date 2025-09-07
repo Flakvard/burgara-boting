@@ -14,6 +14,8 @@ public class GameDragInteraction : MonoBehaviour
     // private LineRenderer DragLineRenderer => GetComponent<LineRenderer>();
     private LineRenderer myLineRenderer;
     public GameObject notaLineGO;
+    public AudioSource robeStrechAudioSource;
+    public AudioSource robeTieAudioSource;
 
     void Awake()
     {
@@ -86,6 +88,12 @@ public class GameDragInteraction : MonoBehaviour
                                     sinceLastSafeNotaNode = 0;
                                 }
                             }
+
+                            if (sinceLastSafeNotaNode == 0)
+                            {
+                                robeStrechAudioSource.pitch = Random.Range(1f, 2f);
+                                robeStrechAudioSource.Play();
+                            }
                         }
                     }
                 }
@@ -114,7 +122,16 @@ public class GameDragInteraction : MonoBehaviour
             touchedNotaNodes.Clear();
             // myLineRenderer.SetPositions(new Vector3[] { });
             myLineRenderer.positionCount = 0;
-            PlayerStats.AddToScore(scoreToAdd);
+            if (PlayerStats.Instance())
+            {
+                PlayerStats.AddToScore(scoreToAdd);
+            }
+
+            robeStrechAudioSource.Stop();
+            if (scoreToAdd > 0)
+            {
+                robeTieAudioSource.Play();
+            }
         }
     }
 

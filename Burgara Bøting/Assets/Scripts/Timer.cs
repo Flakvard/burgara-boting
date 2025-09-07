@@ -30,7 +30,7 @@ public class Timer : MonoBehaviour
                 eventsOnTimerEnd.Invoke();
             }
 
-            timerText.text = $"{(int)(timeLeftSeconds / 60)}:{(int)(timeLeftSeconds % 60)}";
+            timerText.text = $"{(int)(timeLeftSeconds / 60)}:{((int)(timeLeftSeconds % 60)).ToString("D2")}";
         }
     }
 
